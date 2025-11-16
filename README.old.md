@@ -453,9 +453,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👥 Team & Contact
 
-- **Project Lead**: [Your Name]
-- **Email**: [your.email@example.com]
-- **Documentation**: [Link to detailed docs]
+- **Project Lead**: Issa
 
 ---
 
