@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: product-service
+  
+  # Use embedded MongoDB for testing
+  data:
+    mongodb:
+      host: localhost
+      port: 0  # Random port for embedded MongoDB
+      database: test-product-db
+  
+  # Use embedded Redis for testing
+  redis:
+    host: localhost
+    port: 6370  # Different port to avoid conflicts
+  
+  # Kafka test configuration
+  kafka:
+    bootstrap-servers: ${spring.embedded.kafka.brokers}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      auto-offset-reset: earliest
+      group-id: product-service-test
+  
+  # Disable Eureka for tests
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+# Cache configuration for tests
+spring.cache:
+  type: simple  # Use simple cache instead of Redis for tests
+
+# Logging
+logging:
+  level:
+    com.ecommerce.productservice: DEBUG
+    org.springframework.data.mongodb: DEBUG
+    org.springframework.kafka: WARN

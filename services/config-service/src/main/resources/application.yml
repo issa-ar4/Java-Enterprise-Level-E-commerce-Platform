@@ -1,0 +1,58 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          # Use file system for local development
+          uri: file://${user.home}/config-repo
+          # For production, use Git repository:
+          # uri: https://github.com/your-org/config-repo
+          # username: ${GIT_USERNAME}
+          # password: ${GIT_PASSWORD}
+          default-label: main
+          clone-on-start: true
+        # Enable encryption/decryption
+        encrypt:
+          enabled: true
+  security:
+    user:
+      name: admin
+      password: admin123
+
+# Eureka Client Configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+# Actuator endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics,refresh,env
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# Logging
+logging:
+  level:
+    org.springframework.cloud.config: DEBUG
+    com.ecommerce: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
